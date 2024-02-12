@@ -3,9 +3,11 @@ package br.com.dio.desafio.dominio;
 import java.util.*;
 
 public class Dev {
+	private Scanner leitor = new Scanner(System.in);
     private String nome;
     private Set<Conteudo> conteudosInscritos = new LinkedHashSet<>();
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
+    private double totalXp = 0;
 
     public void inscreverBootcamp(Bootcamp bootcamp){
         this.conteudosInscritos.addAll(bootcamp.getConteudos());
@@ -29,12 +31,8 @@ public class Dev {
             double next = iterator.next().calcularXp();
             soma += next;
         }
-        return soma;
-
-        /*return this.conteudosConcluidos
-                .stream()
-                .mapToDouble(Conteudo::calcularXp)
-                .sum();*/
+        totalXp += soma;
+        return totalXp;
     }
 
 
@@ -61,6 +59,33 @@ public class Dev {
     public void setConteudosConcluidos(Set<Conteudo> conteudosConcluidos) {
         this.conteudosConcluidos = conteudosConcluidos;
     }
+    
+    public void realizarTesteConhecimento(TesteConhecimento teste) {
+    	int acertos = 0;
+    	int i = 0;
+    	
+    	for(String pergunta : teste.getPerguntas() ) {
+    		
+    		System.out.println(pergunta);
+    		System.out.println("Digite sua resposta [V]-verdadeiro ou [F]-falso: ");
+    		String respostaDev = leitor.next();
+    		
+    		if(respostaDev.equals(teste.getRespostas().get(i))) {
+    			acertos++;
+    		}
+    		
+    		i++;
+    	}
+    	
+    	if(acertos >= teste.getAcertos()) {
+    		teste.setSituação("Aprovado");
+    		adicionaXpTeste(teste.getXpTeste());
+    	} else {
+    		teste.setSituação("Reprovado");
+    	}
+    	
+    	System.out.println("Você foi " + teste.getSituação() + "no teste de conhecimento");
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -74,4 +99,17 @@ public class Dev {
     public int hashCode() {
         return Objects.hash(nome, conteudosInscritos, conteudosConcluidos);
     }
+
+	public double getTotalXp() {
+		return totalXp;
+	}
+
+	public void setTotalXp(double totalXp) {
+		this.totalXp = totalXp;
+	}
+    
+	private void adicionaXpTeste(double xpTeste) {
+		this.totalXp = this.getTotalXp() + xpTeste;
+	}
+    
 }

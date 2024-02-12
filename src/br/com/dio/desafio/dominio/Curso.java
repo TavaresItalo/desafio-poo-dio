@@ -3,6 +3,7 @@ package br.com.dio.desafio.dominio;
 public class Curso extends Conteudo{
 
     private int cargaHoraria;
+    private TesteConhecimento teste;
 
     @Override
     public double calcularXp() {
@@ -20,8 +21,18 @@ public class Curso extends Conteudo{
     public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
+    
+    
 
-    @Override
+    public TesteConhecimento getTeste() {
+		return teste;
+	}
+
+	public void setTeste(TesteConhecimento teste) {
+		this.teste = teste;
+	}
+
+	@Override
     public String toString() {
         return "Curso{" +
                 "titulo='" + getTitulo() + '\'' +

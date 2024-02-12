@@ -2,8 +2,10 @@ import br.com.dio.desafio.dominio.Bootcamp;
 import br.com.dio.desafio.dominio.Curso;
 import br.com.dio.desafio.dominio.Dev;
 import br.com.dio.desafio.dominio.Mentoria;
+import br.com.dio.desafio.dominio.TesteConhecimento;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -57,6 +59,27 @@ public class Main {
         System.out.println("Conteúdos Inscritos João:" + devJoao.getConteudosInscritos());
         System.out.println("Conteúdos Concluidos João:" + devJoao.getConteudosConcluidos());
         System.out.println("XP:" + devJoao.calcularTotalXp());
+        
+        ArrayList<String> perguntas1 = new ArrayList();
+        perguntas1.add("Java é uma linguagem orientada a objetos?");
+        perguntas1.add("O polimorfismo permite que uma nova classe herde atributos e métodos de outra classe");
+        perguntas1.add("Os 3 pilares da orientação à objetos são: classes, atributos e métodos");
+        perguntas1.add("O encapsulamento permite dividir o código em partes menores");
+        perguntas1.add("A herença permite redefinir atributos e métodos herdados");
+        
+        ArrayList<String> respostas1 = new ArrayList();
+        respostas1.add("V");
+        respostas1.add("V");
+        respostas1.add("V");
+        respostas1.add("F");
+        respostas1.add("F");
+        
+        TesteConhecimento teste1 = new TesteConhecimento(perguntas1, respostas1);
+        
+        devJoao.realizarTesteConhecimento(teste1);
+        
+        System.out.println(devJoao.getTotalXp());
+        
 
     }
 
